@@ -17,14 +17,37 @@ const ListBlog = () => {
               resizeMode="cover"
               imageStyle={{borderRadius: 15}}
               source={{
-                uri: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1744&q=80',
+                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDiLL6y9I8WV8QeEEIzFfOacrrZTkMaw3-kQ&usqp=CAU',
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
                   <Text style={itemHorizontal.cardTitle}>
-                    Exploring the World of Electric Cars
+                    Jujutsu Kaisen 0 (2022)
                   </Text>
-                  <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text>
+                  <Text style={itemHorizontal.cardText}>Mar 16, 2022</Text>
+                </View>
+                <View>
+                  <View style={itemHorizontal.cardIcon}>
+                    <Receipt21 color={colors.black()} variant="Linear" size={20} />
+                  </View>
+                </View>
+              </View>
+            </ImageBackground>
+          </View>
+          <View style={itemHorizontal.cardItem}>
+            <ImageBackground
+              style={itemHorizontal.cardImage}
+              resizeMode="cover"
+              imageStyle={{borderRadius: 15}}
+              source={{
+                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsU_R5mYP3o-n9xZCpQ3hR_C8C18T8paJ5bw&usqp=CAU',
+              }}>
+              <View style={itemHorizontal.cardContent}>
+                <View style={itemHorizontal.cardInfo}>
+                  <Text style={itemHorizontal.cardTitle}>
+                    The Flash (2023)
+                  </Text>
+                  <Text style={itemHorizontal.cardText}>Jun 14, 2023</Text>
                 </View>
                 <View>
                   <View style={itemHorizontal.cardIcon}>
@@ -40,14 +63,14 @@ const ListBlog = () => {
               resizeMode="cover"
               imageStyle={{borderRadius: 15}}
               source={{
-                uri: 'https://images.unsplash.com/photo-1574770118700-4ed7dae3310e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfOnZtlbE_tHTbcL8de6HzoDS6xe--qOtoUg&usqp=CAU',
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
                   <Text style={itemHorizontal.cardTitle}>
-                    Exploring the World of Electric Cars
+                    Fast X (2023)
                   </Text>
-                  <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text>
+                  <Text style={itemHorizontal.cardText}>Mei 17, 2023</Text>
                 </View>
                 <View>
                   <View style={itemHorizontal.cardIcon}>
@@ -63,37 +86,14 @@ const ListBlog = () => {
               resizeMode="cover"
               imageStyle={{borderRadius: 15}}
               source={{
-                uri: 'https://images.unsplash.com/photo-1591293835940-934a7c4f2d9b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80',
+                uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuIcowUeck6T5GRVSGZRLktxl_PnF7ZxUbXw&usqp=CAU',
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
                   <Text style={itemHorizontal.cardTitle}>
-                    Exploring the World of Electric Cars
+                    Elemental (2023)
                   </Text>
-                  <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text>
-                </View>
-                <View>
-                  <View style={itemHorizontal.cardIcon}>
-                    <Receipt21 color={colors.white()} variant="Linear" size={20} />
-                  </View>
-                </View>
-              </View>
-            </ImageBackground>
-          </View>
-          <View style={itemHorizontal.cardItem}>
-            <ImageBackground
-              style={itemHorizontal.cardImage}
-              resizeMode="cover"
-              imageStyle={{borderRadius: 15}}
-              source={{
-                uri: 'https://images.unsplash.com/photo-1577048982768-5cb3e7ddfa23?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80',
-              }}>
-              <View style={itemHorizontal.cardContent}>
-                <View style={itemHorizontal.cardInfo}>
-                  <Text style={itemHorizontal.cardTitle}>
-                    Baking 101: Mastering the Art of Baking
-                  </Text>
-                  <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text>
+                  <Text style={itemHorizontal.cardText}>Jun 21, 2023</Text>
                 </View>
                 <View>
                   <View style={itemHorizontal.cardIcon}>
@@ -109,14 +109,14 @@ const ListBlog = () => {
               resizeMode="cover"
               imageStyle={{borderRadius: 15}}
               source={{
-                uri: 'https://images.unsplash.com/photo-1603048588665-791ca8aea617?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1520&q=80',
+                uri: 'https://m.media-amazon.com/images/M/MV5BYzBmYzdkN2YtMDlhOC00YTQ2LThlNmEtM2FmZmQ5YzMwOWJiXkEyXkFqcGdeQXVyMTA0MjU0Ng@@._V1_.jpg',
               }}>
               <View style={itemHorizontal.cardContent}>
                 <View style={itemHorizontal.cardInfo}>
                   <Text style={itemHorizontal.cardTitle}>
-                    Rediscovering Vinyl: The Resurgence of Analog
+                    Irati (2023)
                   </Text>
-                  <Text style={itemHorizontal.cardText}>Nov 10, 2023</Text>
+                  <Text style={itemHorizontal.cardText}>Feb 24, 2023</Text>
                 </View>
                 <View>
                   <View style={itemHorizontal.cardIcon}>
@@ -429,11 +429,11 @@ export default function App() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <View style={{...category.item, marginLeft: 24}}>
             <Text style={{...category.title, color: colors.blue()}}>
-              Popular
+              Home
             </Text>
           </View>
           <View style={category.item}>
-            <Text style={category.title}>Home</Text>
+            <Text style={category.title}>Series</Text>
           </View>
           <View style={category.item}>
             <Text style={category.title}>Unggulan</Text>
