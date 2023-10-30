@@ -58,4 +58,25 @@ export const CategoryList = [
       createdAt: 'Nov 10, 2023',
       totalComments: 89,
     },
+    {
+      id: 6,
+      title: 'Action',
+      image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDpDH9xxoTYdIQcyRyTclntL2zvvvOgtRcHg&usqp=CAU',
+      createdAt: 'Film yang berisi peristiwa yang biasanya melibatkan kekerasan',
+    },
+    {
+      id: 7,
+      title: 'Romance',
+      image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1MA1bXOBjwsNJN7Uzte78Xq7kmCVYqI9qww&usqp=CAU',
+      createdAt: 'Showcasing a love story where two people overcome adversity to obtain their happily ever after.',
+    },
+    {
+      id: 8,
+      title: 'Comedy',
+      image:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5rtecVpXh_TbpriMmD6--fy1ufGrTY6Htxw&usqp=CAU',
+      createdAt: 'Genre of fiction consisting of discourse or works that are intended to be humorous or entertaining by causing laughter',
+    },
   ];
