@@ -12,9 +12,7 @@ export default function Beranda() {
         <Text style={styles.title}>DaStream</Text>
       </View>
       <ListBlog />
-      <View style={styles.listCategory}>
-        <FlatListCategory />
-      </View>
+      
     </View>
   );
 }
@@ -63,7 +61,7 @@ const ListBlog = () => {
         <ListHorizontal data={horizontalData} />
         <View style={styles.listCard}>
           {verticalData.map((item, index) => (
-            <ItemSmall item={item} key={index} />
+            <ItemSmall style={styles.card2} item={item} key={index} />
           ))}
         </View>
       </View>
@@ -101,10 +99,17 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     gap: 10,
   },
+  card2: {
+    width: '50%',
+  },
   listCard: {
     paddingHorizontal: 24,
     paddingVertical: 10,
     gap: 20,
+    display : 'flex',
+    justifyContent: 'center',
+    flexDirection:'row',
+    flexWrap: 'wrap'
   },
 });
 const category = StyleSheet.create({

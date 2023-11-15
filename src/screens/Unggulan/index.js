@@ -50,9 +50,7 @@ const Unggulan = () => {
           ))}
         </View>
       </ScrollView>
-      <View>
-        <FlatListRecent />
-      </View>
+      
     </View>
   );
 };

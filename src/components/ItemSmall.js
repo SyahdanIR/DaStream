@@ -1,12 +1,15 @@
 import {StyleSheet, Text, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
 import {Receipt21, Clock, Message} from 'iconsax-react-native';
 import React from 'react';
 import { fontType, colors } from '../theme';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ItemSmall = ({item}) => {
+  const navigation = useNavigation();
   return (
-      <View style={styles.cardItem}>
+      <TouchableOpacity style={styles.cardItem} onPress={() => navigation.navigate('BlogDetail', {blogId: item.id})}>
         <FastImage
           style={styles.cardImage}
           source={{
@@ -21,7 +24,7 @@ const ItemSmall = ({item}) => {
             </View>
           </View>
         </FastImage>
-      </View>
+      </TouchableOpacity>
   );
 };
 
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     gap: 15,
   },
   cardItem: {
-    display: 'flex',
+    flexDirection: 'column',
     width: 350,
   },
   cardCategory: {
@@ -60,12 +63,14 @@ const styles = StyleSheet.create({
   cardInfo: {
     flexDirection: 'row',
     gap: 5,
-    alignItems: 'center',
+    alignItems:'center'
   },
   cardContent: {
-    flexDirection: 'row',
+    gap: 10,
+    flex: 1,
     justifyContent: 'space-between',
-    padding: 10,
-    textAlign: 'center',
+    paddingRight: 10,
+    paddingLeft:15,
+    paddingVertical: 10,
   },
 });
