@@ -34,7 +34,7 @@ const FlatListRecent = () => {
   );
 };
 const Unggulan = () => {
-  const recentBlog4 = BlogList.slice(0);
+  const recentBlog4 = BlogList.slice(0, 5);
   return (
     <View style={styles.container}>
       <View style={styles.header}>

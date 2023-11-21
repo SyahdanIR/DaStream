@@ -1,7 +1,7 @@
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
-import React from 'react';
+import {StyleSheet, Text, View, ScrollView, FlatList, Animated} from 'react-native';
+import React, {useRef} from 'react';
 import {BlogList} from '../../../data';
-import {ListHorizontal} from '../../components'; 
+import   {ListHorizontal} from '../../components'; 
 import {SearchNormal1} from 'iconsax-react-native';
 import { fontType, colors } from '../../theme';
 
@@ -12,18 +12,31 @@ const data = [
   {id: 4, label: 'Horor'},
 ];
 const Genre = () => {
-  const recentBlog = BlogList.slice(0, 6);
-  const recentBlog1 = BlogList.slice(0, 7);
-  const recentBlog2 = BlogList.slice(0, 8);
+  const recentBlog = BlogList.slice(5, 6);
+  const recentBlog1 = BlogList.slice(6, 7);
+  const recentBlog2 = BlogList.slice(7, 8);
+  const scrollY = useRef(new Animated.Value(0)).current;
+  const diffClampY = Animated.diffClamp(scrollY, 0, 142);
+  const recentY = diffClampY.interpolate({
+    inputRange: [0, 60],
+    outputRange: [0, -60],
+    extrapolate: 'clamp',
+  });
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <Animated.View style={[styles.header, {transform: [{translateY: recentY}]}]}>
         <View style={styles.bar}>
           <SearchNormal1 size={18} color={colors.black()} variant="Linear" />
           <Text style={styles.placeholder}>Masukkan Genre</Text>
         </View>
-      </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      </Animated.View>
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: scrollY}}}],
+          {useNativeDriver: true},
+        )}
+        contentContainerStyle={{paddingTop: 40}}>
         <View style={styles.listBlog}>
             <ListHorizontal data={recentBlog} />
         </View>
@@ -33,7 +46,7 @@ const Genre = () => {
         <View style={styles.listBlog}>
             <ListHorizontal data={recentBlog2} />
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </View>
   );
 };
@@ -58,6 +71,11 @@ header: {
     elevation: 8,
     paddingTop: 8,
     paddingBottom: 4,
+    position: 'absolute',
+    top: 0,
+    zIndex: 1000,
+    right: 0,
+    left: 0,
   },
   bar: {
     flexDirection: 'row',
@@ -99,5 +117,14 @@ const recent = StyleSheet.create({
     color: colors.white(),
     paddingVertical: 5,
     paddingHorizontal: 24,
+  },
+  container:{
+    position: 'absolute',
+    backgroundColor: colors.white(),
+    zIndex: 999,
+    top: 52,
+    left: 0,
+    right: 0,
+    elevation: 1000,
   },
 });

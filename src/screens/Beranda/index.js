@@ -54,7 +54,7 @@ const FlatListCategory = () => {
 
 const ListBlog = () => {
   const horizontalData = BlogList.slice(0, 1);
-  const verticalData = BlogList.slice(1);
+  const verticalData = BlogList.slice(1, 5);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.listBlog}>
