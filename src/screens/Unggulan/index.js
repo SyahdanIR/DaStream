@@ -1,9 +1,10 @@
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
+import {StyleSheet, Text, View, ScrollView, FlatList, TouchableWithoutFeedback} from 'react-native';
 import React from 'react';
 import {BlogList} from '../../../data';
 import {ItemSmall} from '../../components'; 
 import {SearchNormal1} from 'iconsax-react-native';
 import { fontType, colors } from '../../theme';
+import { useNavigation } from "@react-navigation/native";
 const data = [
   {id: 1, label: 'Film Teratas'},
   {id: 2, label: 'Series Teratas'},
@@ -35,14 +36,17 @@ const FlatListRecent = () => {
 };
 const Unggulan = () => {
   const recentBlog4 = BlogList.slice(0, 5);
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.bar}>
-          <SearchNormal1 size={18} color={colors.black()} variant="Linear" />
-          <Text style={styles.placeholder}>Temukan Unggulan</Text>
+      <TouchableWithoutFeedback onPress={() => navigation.navigate("Cari")}>
+        <View style={styles.header}>
+          <View style={styles.bar}>
+            <SearchNormal1 size={18} color={colors.black()} variant="Linear" />
+            <Text style={styles.placeholder}>Temukan Unggulan</Text>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.listCard}>
           {recentBlog4.map((item, index) => (

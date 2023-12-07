@@ -1,15 +1,23 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
-import {Element3} from 'iconsax-react-native';
+import {AddSquare} from 'iconsax-react-native';
 import {BlogList, CategoryList} from '../../../data';
 import { fontType, colors } from '../../theme';
 import { ListHorizontal, ItemSmall } from '../../components';
+import { useNavigation } from "@react-navigation/native";
 
 export default function Beranda() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>DaStream</Text>
+        <TouchableOpacity
+          style={styles.floatingButton}
+          onPress={() => navigation.navigate("Tambah")}
+        >
+          <AddSquare color={colors.white()} variant="Linear" size={20} />
+        </TouchableOpacity>
       </View>
       <ListBlog />
       
