@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1071812182374",
+    "project_id": "dastream-40dc7",
+    "storage_bucket": "dastream-40dc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071812182374:android:16f3a12f5389016a4908a7",
+        "android_client_info": {
+          "package_name": "com.dastream"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAwZsLvW3fN--QVTglFfSGEP_xi2BcU8s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
