@@ -1,29 +1,29 @@
-import React, {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity} from 'react-native';
+import React, {useState, useCallback} from 'react';
+import {ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity, ActivityIndicator, RefreshControl} from 'react-native';
 import {AddSquare} from 'iconsax-react-native';
 import {BlogList, CategoryList} from '../../../data';
 import { fontType, colors } from '../../theme';
 import { ListHorizontal, ItemSmall } from '../../components';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import {formatNumber} from '../../utils/formatNumber';
+import axios from 'axios';
 
-export default function Beranda() {
-  const navigation = useNavigation();
+const ListBlog = () => {
+  const horizontalData = BlogList.slice(0, 1);
+  const verticalData = BlogList.slice(1, 5);
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>DaStream</Text>
-        <TouchableOpacity
-          style={styles.floatingButton}
-          onPress={() => navigation.navigate("Tambah")}
-        >
-          <AddSquare color={colors.white()} variant="Linear" size={20} />
-        </TouchableOpacity>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.listBlog}>
+        <ListHorizontal data={horizontalData} />
+        {/* <View style={styles.listCard}>
+          {verticalData.map((item, index) => (
+            <ItemSmall style={styles.card2} item={item} key={index} />
+          ))}
+        </View> */}
       </View>
-      <ListBlog />
-      
-    </View>
+    </ScrollView>
   );
-}
+};
 
 const ItemCategory = ({item, onPress, color}) => {
   return (
@@ -60,22 +60,70 @@ const FlatListCategory = () => {
   );
 };
 
-const ListBlog = () => {
-  const horizontalData = BlogList.slice(0, 1);
-  const verticalData = BlogList.slice(1, 5);
-  return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.listBlog}>
-        <ListHorizontal data={horizontalData} />
-        <View style={styles.listCard}>
-          {verticalData.map((item, index) => (
-            <ItemSmall style={styles.card2} item={item} key={index} />
-          ))}
-        </View>
-      </View>
-    </ScrollView>
+export default function Beranda() {
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(true);
+  const [blogData, setBlogData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const getDataBlog = async () => {
+    try {
+      const response = await axios.get(
+        'https://65719005d61ba6fcc012ef7d.mockapi.io/dastream/film',
+      );
+      setBlogData(response.data);
+      setLoading(false)
+    } catch (error) {
+        console.error(error);
+    }
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      getDataBlog()
+      setRefreshing(false);
+    }, 1500);
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getDataBlog();
+    }, [])
   );
-};
+  
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>DaStream</Text>
+        <TouchableOpacity
+          style={styles.floatingButton}
+          onPress={() => navigation.navigate("Tambah")}
+        >
+          <AddSquare color={colors.white()} variant="Linear" size={20} />
+        </TouchableOpacity>
+      </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          gap: 10,
+          paddingVertical: 20,
+        }} refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
+          <ListBlog />
+          <View style={styles.listCard}>
+          {loading ? (
+            <ActivityIndicator size={'large'} color={colors.blue()} />
+          ) : (
+            blogData.map((item, index) => <ItemSmall style={styles.card2} item={item} key={index} />)
+          )}
+        </View>
+        </ScrollView>
+      
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -99,23 +147,24 @@ const styles = StyleSheet.create({
     color: colors.white(),
   },
   listCategory: {
-    paddingVertical: 15,
-    elevation : 10,
+    paddingHorizontal: 5,
+    paddingVertical: 5,
+    elevation : 2,
     color: colors.blue(),
   },
   listBlog: {
-    paddingVertical: 20,
-    gap: 10,
+    paddingVertical: 2,
+    gap: 5,
   },
   card2: {
     width: '50%',
   },
   listCard: {
-    paddingHorizontal: 24,
-    paddingVertical: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
     gap: 20,
     display : 'flex',
-    justifyContent: 'center',
+    justifyContent: 'left',
     flexDirection:'row',
     flexWrap: 'wrap'
   },

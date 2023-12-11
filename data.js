@@ -85,7 +85,7 @@ export const CategoryList = [
       createdAt: 'Film yang berisi peristiwa yang biasanya melibatkan kekerasan',
       totalComments: 89,
       totalLikes:2300,
-      content: '',
+      content: 'Film yang berisi peristiwa yang biasanya melibatkan kekerasan',
     },
     {
       id: 7,
@@ -93,10 +93,10 @@ export const CategoryList = [
       category: 'Romance',
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1MA1bXOBjwsNJN7Uzte78Xq7kmCVYqI9qww&usqp=CAU',
-      createdAt: 'Showcasing a love story where two people overcome adversity to obtain their happily ever after.',
+      createdAt: 'Nov 10, 2023',
       totalComments: 89,
       totalLikes:2300,
-      content: '',
+      content: 'Showcasing a love story where two people overcome adversity to obtain their happily ever after.',
     },
     {
       id: 8,
@@ -104,10 +104,10 @@ export const CategoryList = [
       category: 'Comedy',
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5rtecVpXh_TbpriMmD6--fy1ufGrTY6Htxw&usqp=CAU',
-      createdAt: 'Genre of fiction consisting of discourse or works that are intended to be humorous or entertaining by causing laughter',
+      createdAt: 'Nov 10, 2023',
       totalComments: 89,
       totalLikes:2300,
-      content: '',
+      content: 'Genre of fiction consisting of discourse or works that are intended to be humorous or entertaining by causing laughter',
     },
   ];
 
@@ -118,10 +118,10 @@ export const CategoryList = [
       category: 'Action',
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDpDH9xxoTYdIQcyRyTclntL2zvvvOgtRcHg&usqp=CAU',
-      createdAt: 'Film yang berisi peristiwa yang biasanya melibatkan kekerasan',
+      createdAt: 'Nov 10, 2023',
       totalComments: 89,
       totalLikes:2300,
-      content: '',
+      content: 'Film yang berisi peristiwa yang biasanya melibatkan kekerasan',
     },
     {
       id: 2,
@@ -132,7 +132,7 @@ export const CategoryList = [
       createdAt: 'Showcasing a love story where two people overcome adversity to obtain their happily ever after.',
       totalComments: 89,
       totalLikes:2300,
-      content: '',
+      content: 'Showcasing a love story where two people overcome adversity to obtain their happily ever after.',
     },
     {
       id: 3,
@@ -143,6 +143,6 @@ export const CategoryList = [
       createdAt: 'Genre of fiction consisting of discourse or works that are intended to be humorous or entertaining by causing laughter',
       totalComments: 89,
       totalLikes:2300,
-      content: '',
+      content: 'Genre of fiction consisting of discourse or works that are intended to be humorous or entertaining by causing laughter',
     },
   ];

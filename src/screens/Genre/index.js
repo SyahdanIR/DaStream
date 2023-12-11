@@ -2,7 +2,6 @@ import {StyleSheet, Text, View, ScrollView, FlatList, Animated} from 'react-nati
 import React, {useRef} from 'react';
 import {BlogList} from '../../../data';
 import   {ListHorizontal} from '../../components'; 
-import {SearchNormal1} from 'iconsax-react-native';
 import { fontType, colors } from '../../theme';
 
 const data = [
@@ -25,10 +24,7 @@ const Genre = () => {
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.header, {transform: [{translateY: recentY}]}]}>
-        <View style={styles.bar}>
-          <SearchNormal1 size={18} color={colors.black()} variant="Linear" />
-          <Text style={styles.placeholder}>Masukkan Genre</Text>
-        </View>
+        <Text style={styles.title}>Daftar Genre</Text>
       </Animated.View>
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
@@ -93,8 +89,14 @@ header: {
     lineHeight: 18,
   },
   listBlog: {
-    paddingVertical: 20,
+    paddingVertical: 10,
     gap: 10,
+    flexDirection: 'column',
+  },
+  title: {
+    fontSize: 20,
+    fontFamily: fontType['Pjs-ExtraLight'],
+    color: colors.white(),
   },
 });
 const recent = StyleSheet.create({

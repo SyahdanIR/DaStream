@@ -62,8 +62,13 @@ export default Unggulan;
 const styles = StyleSheet.create({
   listCard: {
     paddingHorizontal: 24,
-    paddingBottom: 10,
-    gap: 10,
+    paddingVertical: 10,
+    gap: 20,
+    display : 'flex',
+    justifyContent: 'left',
+    flexDirection:'row',
+    flexWrap: 'wrap',
+    elevation: 2,
   },
   container: {
     flex: 1,

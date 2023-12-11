@@ -1,23 +1,63 @@
-import {StyleSheet, Text, View, ScrollView, TouchableOpacity, Animated} from 'react-native';
-import React, {useState, useRef} from 'react';
-import {ArrowLeft, Like1, Receipt21, Message, Share, More} from 'iconsax-react-native';
+import {StyleSheet, Text, View, ScrollView, TouchableOpacity, Animated, ActivityIndicator} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import {ArrowLeft, Like1, Message, Share, More, Receipt21} from 'iconsax-react-native';
 import {useNavigation} from '@react-navigation/native';
-import {BlogList} from '../../../data';
 import FastImage from 'react-native-fast-image';
 import { fontType, colors } from '../../theme';
-const formatNumber = number => {
-  if (number >= 1000000000) {
-    return (number / 1000000000).toFixed(1).replace(/\.0$/, '') + 'B';
-  }
-  if (number >= 1000000) {
-    return (number / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-  }
-  if (number >= 1000) {
-    return (number / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-  }
-  return number.toString();
-};
+import {formatNumber} from '../../utils/formatNumber';
+import axios from 'axios';
+import ActionSheet from 'react-native-actions-sheet';
+
 const BlogDetail = ({route}) => {
+  const {blogId} = route.params;
+  const [iconStates, setIconStates] = useState({
+    liked: {variant: 'Linear', color: colors.white(0.5)},
+  });
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const actionSheetRef = useRef(null);
+
+  const openActionSheet = () => {
+    actionSheetRef.current?.show();
+  };
+
+  const closeActionSheet = () => {
+    actionSheetRef.current?.hide();
+  };
+
+  useEffect(() => {
+    getBlogById();
+  }, [blogId]);
+
+  const getBlogById = async () => {
+    try {
+      const response = await axios.get(
+        `https://65719005d61ba6fcc012ef7d.mockapi.io/dastream/film/${blogId}`,
+      );
+      setSelectedBlog(response.data);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const navigateEdit = () => {
+    closeActionSheet()
+    navigation.navigate('EditBlog', {blogId})
+  }
+  const handleDelete = async () => {
+   await axios.delete(`https://65719005d61ba6fcc012ef7d.mockapi.io/dastream/film/${blogId}`)
+      .then(() => {
+        closeActionSheet()
+        navigation.navigate('Beranda');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+  const navigation = useNavigation();
   const scrollY = useRef(new Animated.Value(0)).current;
   const diffClampY = Animated.diffClamp(scrollY, 0, 52);
   const headerY = diffClampY.interpolate({
@@ -28,13 +68,7 @@ const BlogDetail = ({route}) => {
     inputRange: [0, 52],
     outputRange: [0, 52],
   });
-  const {blogId} = route.params;
-  const [iconStates, setIconStates] = useState({
-    liked: {variant: 'Linear', color: colors.white()},
-    bookmarked: {variant: 'Linear', color: colors.grey(0.6)},
-  });
-  const selectedBlog = BlogList.find(blog => blog.id === blogId);
-  const navigation = useNavigation();
+
   const toggleIcon = iconName => {
     setIconStates(prevStates => ({
       ...prevStates,
@@ -42,63 +76,68 @@ const BlogDetail = ({route}) => {
         variant: prevStates[iconName].variant === 'Linear' ? 'Bold' : 'Linear',
         color:
           prevStates[iconName].variant === 'Linear'
-            ? colors.blue()
-            : colors.grey(0.6),
+            ? colors.white()
+            : colors.white(0.5),
       },
     }));
   };
   return (
     <View style={styles.container}>
-      <Animated.View style={[styles.header, {transform:[{translateY:headerY}]}]}>
+      <Animated.View
+        style={[styles.header, {transform: [{translateY: headerY}]}]}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <ArrowLeft
-            color={colors.white()}
-            variant="Linear"
-            size={24}
-          />
+          <ArrowLeft color={colors.white(0.5)} variant="Linear" size={24} />
         </TouchableOpacity>
         <View style={{flexDirection: 'row', justifyContent: 'center', gap: 20}}>
-          <Share color={colors.white()} variant="Linear" size={24} />
-          <More
-            color={colors.white()}
-            variant="Linear"
-            style={{transform: [{rotate: '90deg'}]}}
-          />
+          <Share color={colors.white(0.5)} variant="Linear" size={24} />
+          <TouchableOpacity onPress={openActionSheet}>
+            <More
+              color={colors.white(0.5)}
+              variant="Linear"
+              style={{transform: [{rotate: '90deg'}]}}
+            />
+          </TouchableOpacity>
         </View>
       </Animated.View>
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: scrollY}}}],
-          {useNativeDriver: true},
-        )}
-        contentContainerStyle={{
-          paddingHorizontal: 24,
-          paddingTop: 62,
-          paddingBottom: 54,
-        }}>
-        <FastImage
-          style={styles.image}
-          source={{
-            uri: selectedBlog.image,
-            headers: {Authorization: 'someAuthToken'},
-            priority: FastImage.priority.high,
-          }}
-          resizeMode={FastImage.resizeMode.cover}>
-        </FastImage>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginTop: 15,
-          }}>
-          <Text style={styles.category}>{selectedBlog.category}</Text>
+      {loading ? (
+        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+          <ActivityIndicator size={'large'} color={colors.blue()} />
         </View>
-        <Text style={styles.title}>{selectedBlog.title}</Text>
-        <Text style={styles.content}>{selectedBlog.content}</Text>
-      </Animated.ScrollView>
-      <Animated.View style={[styles.bottomBar, {transform:[{translateY:bottomBarY}]}]}>
-        <View style={{flexDirection:'row', gap:5, alignItems:'center'}}>
+      ) : (
+        <Animated.ScrollView
+          showsVerticalScrollIndicator={false}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: scrollY}}}],
+            {useNativeDriver: true},
+          )}
+          contentContainerStyle={{
+            paddingHorizontal: 24,
+            paddingTop: 62,
+            paddingBottom: 54,
+          }}>
+          <FastImage
+            style={styles.image}
+            source={{
+              uri: selectedBlog?.image,
+              headers: {Authorization: 'someAuthToken'},
+              priority: FastImage.priority.high,
+            }}
+            resizeMode={FastImage.resizeMode.cover}></FastImage>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 15,
+            }}>
+            <Text style={styles.category}>{selectedBlog?.category.name}</Text>
+          </View>
+          <Text style={styles.title}>{selectedBlog?.title}</Text>
+          <Text style={styles.content}>{selectedBlog?.content}</Text>
+        </Animated.ScrollView>
+      )}
+      <Animated.View
+        style={[styles.bottomBar, {transform: [{translateY: bottomBarY}]}]}>
+        <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
           <TouchableOpacity onPress={() => toggleIcon('liked')}>
             <Like1
               color={iconStates.liked.color}
@@ -107,19 +146,82 @@ const BlogDetail = ({route}) => {
             />
           </TouchableOpacity>
           <Text style={styles.info}>
-            {formatNumber(selectedBlog.totalLikes)}
+            {formatNumber(selectedBlog?.totalLikes)}
           </Text>
         </View>
-        <View style={{flexDirection:'row', gap:5, alignItems:'center'}}>
-        <Message color={colors.white()} variant="Linear" size={24} />
-        <Text style={styles.info}>
-          {formatNumber(selectedBlog.totalComments)}
-        </Text>
+        <View style={{flexDirection: 'row', gap: 5, alignItems: 'center'}}>
+          <Message color={colors.white(0.5)} variant="Linear" size={24} />
+          <Text style={styles.info}>
+            {formatNumber(selectedBlog?.totalComments)}
+          </Text>
         </View>
       </Animated.View>
+      <ActionSheet
+        ref={actionSheetRef}
+        containerStyle={{
+          borderTopLeftRadius: 25,
+          borderTopRightRadius: 25,
+          backgroundColor: colors.darkModeBlack(),
+        }}
+        indicatorStyle={{
+          width: 100,
+        }}
+        gestureEnabled={true}
+        defaultOverlayOpacity={0.3}>
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: 15,
+          }}
+          onPress={navigateEdit}
+          >
+          <Text
+            style={{
+              fontFamily: fontType['Pjs-Medium'],
+              color: colors.white(),
+              fontSize: 18,
+            }}>
+            Edit
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: 15,
+          }}
+          onPress={handleDelete}>
+          <Text
+            style={{
+              fontFamily: fontType['Pjs-Medium'],
+              color: colors.white(),
+              fontSize: 18,
+            }}>
+            Delete
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingVertical: 15,
+          }}
+          onPress={closeActionSheet}>
+          <Text
+            style={{
+              fontFamily: fontType['Pjs-Medium'],
+              color: 'red',
+              fontSize: 18,
+            }}>
+            Cancel
+          </Text>
+        </TouchableOpacity>
+      </ActionSheet>
     </View>
   );
 };
+
 export default BlogDetail;
 const styles = StyleSheet.create({
   container: {
